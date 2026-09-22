@@ -1,0 +1,6 @@
+{
+  "name": "Merge Number",
+  "description": "Relaxing Number Merge Puzzle Game",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
