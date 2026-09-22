@@ -1,5 +1,4 @@
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
-import java.util.Base64
 
 plugins {
   alias(libs.plugins.android.application)
@@ -19,31 +18,21 @@ android {
     minSdk = 24
     targetSdk = 36
     versionCode = 3
-    versionName = "0.0.0.2"
+    versionName = "2.0.1"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   signingConfigs {
     create("release") {
-      val defaultKeystore = file("${rootDir}/debug.keystore")
-      val b64File = file("${rootDir}/debug.keystore.base64")
-      if (!defaultKeystore.exists() && b64File.exists()) {
-        defaultKeystore.writeBytes(Base64.getDecoder().decode(b64File.readText().trim()))
-      }
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: defaultKeystore.absolutePath
+      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/debug.keystore"
       storeFile = file(keystorePath)
       storePassword = System.getenv("STORE_PASSWORD") ?: "android"
       keyAlias = System.getenv("KEY_ALIAS") ?: "androiddebugkey"
       keyPassword = System.getenv("KEY_PASSWORD") ?: "android"
     }
     create("debugConfig") {
-      val defaultKeystore = file("${rootDir}/debug.keystore")
-      val b64File = file("${rootDir}/debug.keystore.base64")
-      if (!defaultKeystore.exists() && b64File.exists()) {
-        defaultKeystore.writeBytes(Base64.getDecoder().decode(b64File.readText().trim()))
-      }
-      storeFile = defaultKeystore
+      storeFile = file("${rootDir}/debug.keystore")
       storePassword = "android"
       keyAlias = "androiddebugkey"
       keyPassword = "android"
